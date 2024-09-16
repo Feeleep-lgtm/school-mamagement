@@ -1,0 +1,16 @@
+/node_modules
+/uploads
+/dist
+.env
+.txt
+.designs
+logs
+.DS_Store
+csv
+parents
+server.logs
+
+
+.jest-cache
+
+coverage

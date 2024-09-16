@@ -1,0 +1,895 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table GuidentAdmin {
+  id String [pk]
+  email String [unique, not null]
+  company String [not null, default: 'Guident']
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  parentStories ParentStory [not null]
+}
+
+Table ParentStory {
+  id String [pk]
+  title String [not null]
+  context String [not null]
+  minuteRead String [not null]
+  content String [not null]
+  admin GuidentAdmin [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  guidentAdminId String [not null]
+}
+
+Table User {
+  id String [pk]
+  avatar String [not null]
+  isEmailVerified Boolean [not null]
+  profileCompleted Boolean [not null]
+  status SchoolStatus [not null, default: 'BLOCKED']
+  userType UserType [not null]
+  profilePicture String
+  userName String [unique]
+  imageUrl String [unique]
+  email String [unique, not null]
+  password String [not null]
+  userToken UserToken
+  company String [not null, default: 'Guident']
+  teacher Teacher
+  school School
+  parent Parent
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime [default: `now()`]
+}
+
+Table UserToken {
+  id String [pk]
+  token String [unique, not null]
+  tokenGeneratedTime DateTime [not null]
+  userId String [unique, not null]
+  user User [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  company String [not null, default: 'Guident']
+}
+
+Table School {
+  id String [pk]
+  userId String [unique, not null]
+  user User [not null]
+  schoolName String [not null]
+  address String [unique, not null]
+  rcNumber String [unique, not null]
+  firstName String [not null]
+  lastName String [not null]
+  phoneNumber String [unique, not null]
+  position String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  teacherSchool TeacherSchool [not null]
+  classes SchoolClass [not null]
+  academicSessions AcademicSession [not null]
+  classSubjects ClassSubject [not null]
+  studentAcademicSessionResults StudentAcademicSessionResult [not null]
+  assessments Assessment [not null]
+  behaviours Behaviour [not null]
+  financialRecords Financial [not null]
+  schoolEvents SchoolEvent [not null]
+  schoolAnnouncements SchoolAnnouncement [not null]
+  academicSessionTerms AcademicSessionTerm [not null]
+  schoolAssignments SchoolAssignment [not null]
+  schoolStudentSkills SchoolStudentSkill [not null]
+  studentAcademicSession StudentAcademicSession [not null]
+  remarks Remark [not null]
+  teacherInvites TeacherInvite [not null]
+  schoolClassAcademicSessions SchoolClassAcademicSession [not null]
+  parents SchoolParent [not null]
+  students SchoolStudent [not null]
+  company String [not null, default: 'Guident']
+  attendance Attendance [not null]
+  classResults ClassResult [not null]
+  parentResults ParentResults [not null]
+  financialTypes FinancialType [not null]
+  expenseVendors ExpenseVendor [not null]
+  expenseCategories ExpenseCategory [not null]
+  expenses Expense [not null]
+}
+
+Table Student {
+  id String [pk]
+  firstName String [not null]
+  lastName String [not null]
+  otherName String
+  nationality String [not null]
+  dateOfBirth String [not null]
+  stateOfOrigin String [not null]
+  localGovernmentArea String [not null]
+  profilePicture String [not null]
+  imageUrl String [not null]
+  userName String [unique, not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  parent Parent
+  parentId String
+  schools SchoolStudent [not null]
+  company String [not null, default: 'Guident']
+  parentResults ParentResults [not null]
+}
+
+Table SchoolStudent {
+  id String [pk]
+  school School [not null]
+  schoolId String [not null]
+  status StudentStatus [not null, default: 'ACTIVE']
+  student Student [not null]
+  studentId String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  studentAcademicSessions StudentAcademicSession [not null]
+  company String [not null, default: 'Guident']
+}
+
+Table StudentAcademicSession {
+  id String [pk]
+  academicSessionId String [not null]
+  academicSession AcademicSession [not null]
+  classId String [not null]
+  class SchoolClass [not null]
+  academicSessionTermId String [not null]
+  academicSessionTerm AcademicSessionTerm [not null]
+  schoolId String [not null]
+  school School [not null]
+  schoolStudentId String [not null]
+  student SchoolStudent [not null]
+  behaviours Behaviour [not null]
+  financialRecords Financial [not null]
+  schoolAssignments SchoolAssignment [not null]
+  schoolStudentSkills SchoolStudentSkill [not null]
+  studentAcademicSessionResults StudentAcademicSessionResult [not null]
+  remarks Remark [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  company String [not null, default: 'Guident']
+  attendanceRecords Attendance [not null]
+  parentResults ParentResults [not null]
+}
+
+Table Parent {
+  id String [pk]
+  events SchoolEvent [not null]
+  occupation String
+  isSubscribed Boolean [default: false]
+  parentPhoneNumber String [unique, not null]
+  parentAddress String [not null]
+  fullName String
+  userId String [unique, not null]
+  user User [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  children Student [not null]
+  schools SchoolParent [not null]
+  company String [not null, default: 'Guident']
+  studentResults ParentResults [not null]
+}
+
+Table SchoolParent {
+  id String [pk]
+  school School [not null]
+  schoolId String [not null]
+  parent Parent [not null]
+  parentId String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  company String [not null, default: 'Guident']
+}
+
+Table Teacher {
+  id String [pk]
+  schools TeacherSchool [not null]
+  events SchoolEvent [not null]
+  announcements SchoolAnnouncement [not null]
+  firstName String [not null]
+  lastName String [not null]
+  updatedAt DateTime [default: `now()`, not null]
+  createdAt DateTime [default: `now()`, not null]
+  phoneNumber String [not null]
+  address String [not null]
+  userId String [unique, not null]
+  user User [not null]
+  teacherInvite TeacherInvite
+  company String [not null, default: 'Guident']
+}
+
+Table TeacherInvite {
+  id String [pk]
+  token String [unique, not null]
+  expiresAt DateTime [not null]
+  schoolId String [not null]
+  accepted Boolean [not null, default: false]
+  school School [not null]
+  teacherId String [unique, not null]
+  teacher Teacher [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  company String [not null, default: 'Guident']
+}
+
+Table TeacherSchool {
+  id String [pk]
+  teacher Teacher [not null]
+  teacherId String [not null]
+  schoolId String [unique, not null]
+  school School [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  company String [not null, default: 'Guident']
+}
+
+Table SchoolEvent {
+  id String [pk]
+  title String [not null]
+  description String [not null]
+  location String [not null]
+  eventDate DateTime [default: `now()`, not null]
+  startTime String [not null]
+  endTime String [not null]
+  parentId String [not null]
+  academicSessionId String [not null]
+  academicSession AcademicSession [not null]
+  parent Parent [not null]
+  schoolId String [unique, not null]
+  school School [not null]
+  teacherId String [not null]
+  teacher Teacher [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  company String [not null, default: 'Guident']
+}
+
+Table SchoolAnnouncement {
+  id String [unique, not null]
+  title String [not null]
+  description String [not null]
+  academicSessionId String [not null]
+  academicSession AcademicSession [not null]
+  schoolId String [unique, not null]
+  school School [not null]
+  teacherId String [not null]
+  teacher Teacher [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  company String [not null, default: 'Guident']
+}
+
+Table SchoolClass {
+  id String [pk]
+  className String [not null]
+  schoolId String [not null]
+  school School [not null]
+  subjects ClassSubject [not null]
+  behaviours Behaviour [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  financialRecords Financial [not null]
+  studentAcademicSession StudentAcademicSession [not null]
+  schoolStudentSkills SchoolStudentSkill [not null]
+  studentAcademicSessionResult StudentAcademicSessionResult [not null]
+  remark Remark [not null]
+  academicSessions SchoolClassAcademicSession [not null]
+  company String [not null, default: 'Guident']
+  attendanceRecords Attendance [not null]
+  academicSessionResultStatus ClassResult [not null]
+  parentResults ParentResults [not null]
+  financialTypes FinancialType [not null]
+}
+
+Table ClassSubject {
+  id String [pk]
+  subject String [not null]
+  classId String [not null]
+  class SchoolClass [not null]
+  schoolId String [not null]
+  school School [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  studentAcademicSessionResults StudentAcademicSessionResult [not null]
+  schoolAssignments SchoolAssignment [not null]
+  company String [not null, default: 'Guident']
+}
+
+Table AcademicSession {
+  id String [pk]
+  sessionName String [not null]
+  current Boolean [not null, default: false]
+  schoolId String [not null]
+  school School [not null]
+  sessionStartDate String [not null]
+  sessionEndDate String [not null]
+  academicSessionTerms AcademicSessionTerm [not null]
+  studentAcademicSessions StudentAcademicSession [not null]
+  studentAcademicSessionResults StudentAcademicSessionResult [not null]
+  behaviours Behaviour [not null]
+  financialRecords Financial [not null]
+  schoolAssignments SchoolAssignment [not null]
+  schoolStudentSkills SchoolStudentSkill [not null]
+  schoolAnnouncements SchoolAnnouncement [not null]
+  schoolEvents SchoolEvent [not null]
+  assessments Assessment [not null]
+  remark Remark [not null]
+  classes SchoolClassAcademicSession [not null]
+  company String [not null, default: 'Guident']
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  attendanceRecords Attendance [not null]
+  ClassResult ClassResult [not null]
+  parentResults ParentResults [not null]
+  financialTypes FinancialType [not null]
+  expenses Expense [not null]
+}
+
+Table SchoolClassAcademicSession {
+  id String [pk]
+  classId String [not null]
+  academicSessionId String [not null]
+  class SchoolClass [not null]
+  academicSession AcademicSession [not null]
+  school School [not null]
+  schoolId String [not null]
+  company String [not null, default: 'Guident']
+}
+
+Table AcademicSessionTerm {
+  id String [pk]
+  termName String [not null]
+  current Boolean [not null]
+  termStartDate String [not null]
+  termEndDate String [not null]
+  academicSessionId String [not null]
+  academicSession AcademicSession [not null]
+  studentAcademicSessions StudentAcademicSession [not null]
+  studentAcademicSessionResults StudentAcademicSessionResult [not null]
+  behaviours Behaviour [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  financialRecords Financial [not null]
+  schoolId String [not null]
+  school School [not null]
+  schoolAssignments SchoolAssignment [not null]
+  schoolStudentSkills SchoolStudentSkill [not null]
+  remark Remark [not null]
+  company String [not null, default: 'Guident']
+  attendanceRecords Attendance [not null]
+  ClassResult ClassResult [not null]
+  parentResults ParentResults [not null]
+  financialTypes FinancialType [not null]
+  expenses Expense [not null]
+}
+
+Table StudentAcademicSessionResult {
+  id String [pk]
+  schoolId String [not null]
+  school School [not null]
+  subjectId String [not null]
+  subject ClassSubject [not null]
+  score Int [not null]
+  commentaryScore String
+  assessmentId String [not null]
+  approved Boolean [not null, default: false]
+  assessment Assessment [not null]
+  classId String [not null]
+  class SchoolClass [not null]
+  academicSessionId String [not null]
+  academicSession AcademicSession [not null]
+  academicSessionTermId String [not null]
+  academicSessionTerm AcademicSessionTerm [not null]
+  studentAcademicSessionId String [not null]
+  studentAcademicSession StudentAcademicSession [not null]
+  firstApprovalStatus ApprovalStatus [default: 'PENDING']
+  secondApprovalStatus ApprovalStatus [default: 'PENDING']
+  parentApprovalStatus ApprovalStatus [default: 'PENDING']
+  classResultId String
+  classResult ClassResult
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  company String [not null, default: 'Guident']
+}
+
+Table ClassResult {
+  id String [pk]
+  schoolId String
+  school School
+  behaviours Behaviour [not null]
+  remarks Remark [not null]
+  skills SchoolStudentSkill [not null]
+  attendanceRecords Attendance [not null]
+  results StudentAcademicSessionResult [not null]
+  classId String [not null]
+  class SchoolClass [not null]
+  academicSessionId String [not null]
+  academicSession AcademicSession [not null]
+  academicSessionTermId String [not null]
+  academicSessionTerm AcademicSessionTerm [not null]
+  firstApprovalStatus ApprovalStatus [not null, default: 'PENDING']
+  secondApprovalStatus ApprovalStatus [not null, default: 'PENDING']
+  parentApprovalStatus ApprovalStatus [default: 'PENDING']
+  company String [not null, default: 'Guident']
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+}
+
+Table ParentResults {
+  id String [pk]
+  classId String [not null]
+  class SchoolClass [not null]
+  academicSessionId String [not null]
+  academicSession AcademicSession [not null]
+  academicSessionTermId String [not null]
+  academicSessionTerm AcademicSessionTerm [not null]
+  reportCard Json [not null]
+  studentId String [not null]
+  student Student [not null]
+  schoolId String [not null]
+  school School [not null]
+  parentId String [not null]
+  parent Parent [not null]
+  approved ApprovalStatus [not null, default: 'APPROVED']
+  company String [not null, default: 'Guident']
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  studentAcademicSession StudentAcademicSession
+  studentAcademicSessionId String
+}
+
+Table Attendance {
+  id String [pk]
+  totalDays Int [not null]
+  presentDays Int [not null]
+  absentDays Int [not null]
+  classId String [not null]
+  class SchoolClass [not null]
+  schoolId String [not null]
+  school School [not null]
+  academicSessionId String [not null]
+  academicSession AcademicSession [not null]
+  academicSessionTermId String [not null]
+  academicSessionTerm AcademicSessionTerm [not null]
+  studentAcademicSessionId String [not null]
+  classResultId String
+  classResult ClassResult
+  studentAcademicSession StudentAcademicSession [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+}
+
+Table Behaviour {
+  id String [pk]
+  academicSessionId String [not null]
+  academicSession AcademicSession [not null]
+  classId String [not null]
+  class SchoolClass [not null]
+  behaviourType String [not null]
+  score Int [not null]
+  academicSessionTermId String [not null]
+  academicSessionTerm AcademicSessionTerm [not null]
+  schoolId String [not null]
+  school School [not null]
+  studentAcademicSessionId String [not null]
+  studentAcademicSession StudentAcademicSession [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  company String [not null, default: 'Guident']
+  academicSessionResultStatus ClassResult
+  classResultId String
+}
+
+Table Remark {
+  id String [pk]
+  school School [not null]
+  comment String [not null]
+  classId String [not null]
+  class SchoolClass [not null]
+  academicSessionId String [not null]
+  academicSession AcademicSession [not null]
+  academicSessionTermId String [not null]
+  academicSessionTerm AcademicSessionTerm [not null]
+  remarkType RemarkType [not null]
+  schoolId String [not null]
+  studentAcademicSessionId String [not null]
+  signature String
+  studentAcademicSession StudentAcademicSession [not null]
+  classResultId String
+  classResult ClassResult
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  company String [not null, default: 'Guident']
+}
+
+Table SchoolStudentSkill {
+  id String [pk]
+  academicSessionId String [not null]
+  academicSession AcademicSession [not null]
+  classId String [not null]
+  class SchoolClass [not null]
+  skillType String [not null]
+  score Int [not null]
+  academicSessionTermId String [not null]
+  academicSessionTerm AcademicSessionTerm [not null]
+  schoolId String [not null]
+  school School [not null]
+  studentAcademicSessionId String [not null]
+  studentAcademicSession StudentAcademicSession [not null]
+  classResultId String
+  classResult ClassResult
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  company String [not null, default: 'Guident']
+}
+
+Table FinancialType {
+  id String [pk]
+  schoolId String [not null]
+  school School [not null]
+  academicSessionId String [not null]
+  academicSession AcademicSession [not null]
+  academicSessionTermId String [not null]
+  academicSessionTerm AcademicSessionTerm [not null]
+  classId String
+  class SchoolClass
+  name String [not null]
+  feeAmount Float [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  company String [not null, default: 'Guident']
+  financials Financial [not null]
+}
+
+Table Financial {
+  id String [pk]
+  schoolId String [not null]
+  school School [not null]
+  academicSessionId String [not null]
+  academicSession AcademicSession [not null]
+  academicSessionTermId String [not null]
+  academicSessionTerm AcademicSessionTerm [not null]
+  classId String [not null]
+  class SchoolClass [not null]
+  paymentMethod FinancialPaymentMethod [not null]
+  amount String [not null]
+  receipt String
+  status FinancialStatus [not null]
+  currency Currency [not null, default: 'NAIRA']
+  feeTypeId String [not null]
+  feeType FinancialType [not null]
+  studentAcademicSessionId String [not null]
+  studentAcademicSessions StudentAcademicSession [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  company String [not null, default: 'Guident']
+}
+
+Table SchoolAssignment {
+  id String [pk]
+  title String [not null]
+  subjectId String [not null]
+  subject ClassSubject [not null]
+  description String [not null]
+  schoolId String [unique, not null]
+  school School [not null]
+  academicSessionId String [not null]
+  academicSession AcademicSession [not null]
+  studentAcademicSessionId String [not null]
+  studentAcademicSession StudentAcademicSession [not null]
+  academicSessionTermId String [not null]
+  academicSessionTerm AcademicSessionTerm [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  company String [not null, default: 'Guident']
+}
+
+Table Assessment {
+  id String [pk]
+  assessmentName String [not null]
+  grade Float [not null]
+  school School [not null]
+  academicSessionId String [not null]
+  academicSession AcademicSession [not null]
+  schoolId String [not null]
+  studentAcademicSessionResults StudentAcademicSessionResult [not null]
+  company String [not null, default: 'Guident']
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+}
+
+Table ExpenseVendor {
+  id String [pk]
+  name String [not null]
+  schoolId String [not null]
+  school School [not null]
+  company String [not null, default: 'Guident']
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  expenses Expense [not null]
+}
+
+Table ExpenseCategory {
+  id String [pk]
+  name String [not null]
+  schoolId String [not null]
+  school School [not null]
+  company String [not null, default: 'Guident']
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  expenses Expense [not null]
+}
+
+Table Expense {
+  id String [pk]
+  school School [not null]
+  academicSession AcademicSession [not null]
+  academicSessionTerm AcademicSessionTerm [not null]
+  vendor ExpenseVendor [not null]
+  category ExpenseCategory [not null]
+  paidAmount Float [not null]
+  description String
+  receipt String
+  academicSessionId String [not null]
+  academicSessionTermId String [not null]
+  expenseVendorId String [not null]
+  expenseCategoryId String [not null]
+  schoolId String [not null]
+  totalCostOfService Float [not null, default: 0]
+  company String [not null, default: 'Guident']
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+}
+
+Enum StudentStatus {
+  ACTIVE
+  GRADUATED
+  RUSTICATED
+  OUT
+}
+
+Enum FinancialStatus {
+  PAID
+  FAILED
+}
+
+Enum FinancialPaymentMethod {
+  CASH
+  SCHOOL_BANK_ACCOUNT
+}
+
+Enum Currency {
+  NAIRA
+  DOLLAR
+}
+
+Enum RemarkType {
+  SCHOOL
+  TEACHER
+  HEAD_TEACHER
+}
+
+Enum SchoolStatus {
+  ACTIVE
+  BLOCKED
+}
+
+Enum UserType {
+  school
+  parent
+  teacher
+}
+
+Enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+Ref: ParentStory.guidentAdminId > GuidentAdmin.id
+
+Ref: UserToken.userId - User.id
+
+Ref: School.userId - User.id
+
+Ref: Student.parentId > Parent.id
+
+Ref: SchoolStudent.schoolId > School.id
+
+Ref: SchoolStudent.studentId > Student.id
+
+Ref: StudentAcademicSession.academicSessionId > AcademicSession.id
+
+Ref: StudentAcademicSession.classId > SchoolClass.id
+
+Ref: StudentAcademicSession.academicSessionTermId > AcademicSessionTerm.id
+
+Ref: StudentAcademicSession.schoolId > School.id
+
+Ref: StudentAcademicSession.schoolStudentId > SchoolStudent.id
+
+Ref: Parent.userId - User.id
+
+Ref: SchoolParent.schoolId > School.id
+
+Ref: SchoolParent.parentId > Parent.id
+
+Ref: Teacher.userId - User.id
+
+Ref: TeacherInvite.schoolId > School.id
+
+Ref: TeacherInvite.teacherId - Teacher.id
+
+Ref: TeacherSchool.teacherId > Teacher.id
+
+Ref: TeacherSchool.schoolId > School.id
+
+Ref: SchoolEvent.academicSessionId > AcademicSession.id
+
+Ref: SchoolEvent.parentId > Parent.id
+
+Ref: SchoolEvent.schoolId > School.id
+
+Ref: SchoolEvent.teacherId > Teacher.id
+
+Ref: SchoolAnnouncement.academicSessionId > AcademicSession.id
+
+Ref: SchoolAnnouncement.schoolId > School.id
+
+Ref: SchoolAnnouncement.teacherId > Teacher.id
+
+Ref: SchoolClass.schoolId > School.id
+
+Ref: ClassSubject.classId > SchoolClass.id
+
+Ref: ClassSubject.schoolId > School.id
+
+Ref: AcademicSession.schoolId > School.id
+
+Ref: SchoolClassAcademicSession.classId > SchoolClass.id
+
+Ref: SchoolClassAcademicSession.academicSessionId > AcademicSession.id
+
+Ref: SchoolClassAcademicSession.schoolId > School.id
+
+Ref: AcademicSessionTerm.academicSessionId > AcademicSession.id
+
+Ref: AcademicSessionTerm.schoolId > School.id
+
+Ref: StudentAcademicSessionResult.schoolId > School.id
+
+Ref: StudentAcademicSessionResult.subjectId > ClassSubject.id
+
+Ref: StudentAcademicSessionResult.assessmentId > Assessment.id
+
+Ref: StudentAcademicSessionResult.classId > SchoolClass.id
+
+Ref: StudentAcademicSessionResult.academicSessionId > AcademicSession.id
+
+Ref: StudentAcademicSessionResult.academicSessionTermId > AcademicSessionTerm.id
+
+Ref: StudentAcademicSessionResult.studentAcademicSessionId > StudentAcademicSession.id
+
+Ref: StudentAcademicSessionResult.classResultId > ClassResult.id
+
+Ref: ClassResult.schoolId > School.id
+
+Ref: ClassResult.classId > SchoolClass.id
+
+Ref: ClassResult.academicSessionId > AcademicSession.id
+
+Ref: ClassResult.academicSessionTermId > AcademicSessionTerm.id
+
+Ref: ParentResults.classId > SchoolClass.id
+
+Ref: ParentResults.academicSessionId > AcademicSession.id
+
+Ref: ParentResults.academicSessionTermId > AcademicSessionTerm.id
+
+Ref: ParentResults.studentId > Student.id
+
+Ref: ParentResults.schoolId > School.id
+
+Ref: ParentResults.parentId > Parent.id
+
+Ref: ParentResults.studentAcademicSessionId > StudentAcademicSession.id
+
+Ref: Attendance.classId > SchoolClass.id
+
+Ref: Attendance.schoolId > School.id
+
+Ref: Attendance.academicSessionId > AcademicSession.id
+
+Ref: Attendance.academicSessionTermId > AcademicSessionTerm.id
+
+Ref: Attendance.classResultId > ClassResult.id
+
+Ref: Attendance.studentAcademicSessionId > StudentAcademicSession.id
+
+Ref: Behaviour.academicSessionId > AcademicSession.id
+
+Ref: Behaviour.classId > SchoolClass.id
+
+Ref: Behaviour.academicSessionTermId > AcademicSessionTerm.id
+
+Ref: Behaviour.schoolId > School.id
+
+Ref: Behaviour.studentAcademicSessionId > StudentAcademicSession.id
+
+Ref: Behaviour.classResultId > ClassResult.id
+
+Ref: Remark.schoolId > School.id
+
+Ref: Remark.classId > SchoolClass.id
+
+Ref: Remark.academicSessionId > AcademicSession.id
+
+Ref: Remark.academicSessionTermId > AcademicSessionTerm.id
+
+Ref: Remark.studentAcademicSessionId > StudentAcademicSession.id
+
+Ref: Remark.classResultId > ClassResult.id
+
+Ref: SchoolStudentSkill.academicSessionId > AcademicSession.id
+
+Ref: SchoolStudentSkill.classId > SchoolClass.id
+
+Ref: SchoolStudentSkill.academicSessionTermId > AcademicSessionTerm.id
+
+Ref: SchoolStudentSkill.schoolId > School.id
+
+Ref: SchoolStudentSkill.studentAcademicSessionId > StudentAcademicSession.id
+
+Ref: SchoolStudentSkill.classResultId > ClassResult.id
+
+Ref: FinancialType.schoolId > School.id
+
+Ref: FinancialType.academicSessionId > AcademicSession.id
+
+Ref: FinancialType.academicSessionTermId > AcademicSessionTerm.id
+
+Ref: FinancialType.classId > SchoolClass.id
+
+Ref: Financial.schoolId > School.id
+
+Ref: Financial.academicSessionId > AcademicSession.id
+
+Ref: Financial.academicSessionTermId > AcademicSessionTerm.id
+
+Ref: Financial.classId > SchoolClass.id
+
+Ref: Financial.feeTypeId > FinancialType.id
+
+Ref: Financial.studentAcademicSessionId > StudentAcademicSession.id
+
+Ref: SchoolAssignment.subjectId > ClassSubject.id
+
+Ref: SchoolAssignment.schoolId > School.id
+
+Ref: SchoolAssignment.academicSessionId > AcademicSession.id
+
+Ref: SchoolAssignment.studentAcademicSessionId > StudentAcademicSession.id
+
+Ref: SchoolAssignment.academicSessionTermId > AcademicSessionTerm.id
+
+Ref: Assessment.schoolId > School.id
+
+Ref: Assessment.academicSessionId > AcademicSession.id
+
+Ref: ExpenseVendor.schoolId > School.id
+
+Ref: ExpenseCategory.schoolId > School.id
+
+Ref: Expense.schoolId > School.id
+
+Ref: Expense.academicSessionId > AcademicSession.id
+
+Ref: Expense.academicSessionTermId > AcademicSessionTerm.id
+
+Ref: Expense.expenseVendorId > ExpenseVendor.id
+
+Ref: Expense.expenseCategoryId > ExpenseCategory.id

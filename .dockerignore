@@ -1,0 +1,10 @@
+/node_modules
+/uploads
+/dist
+.txt
+.designs
+logs
+.DS_Store
+server.logs
+.jest-cache
+coverage

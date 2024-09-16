@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body style="background-color: #eaf0f3; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0;">
+  <div style="background-color: #eaf0f3; padding: 20px; width: 100%; max-width: 800px; text-align: center;">
+    <div style="margin-top: 16px;">
+      <div style="border-radius: 50%; overflow: hidden; margin-bottom: 5px; display: inline-block;">
+        <img loading="lazy" src="https://res.cloudinary.com/dqqx6sv3o/image/upload/v1708184846/Logo_1_lgng9k.png" style="width: 100%; max-width: 100%;">
+      </div>
+    </div>
+    <div style="color: #000; font: 400 24px Barlow, sans-serif; margin-top: 5px;">
+      Hi <span style="font-weight: 700">{{schoolName}}!</span>,<br /> Login Alert!
+    </div>
+    <div style="background-color: var(--text-primary, #fff); border-radius: 6px; margin-top: 16px; padding: 20px; font-size: 18px; font-weight: 400; display: inline-block;">
+      <div style="margin-bottom: 20px; text-align: center;">
+        <img loading="Instagram_Picture" src="https://res.cloudinary.com/dqqx6sv3o/image/upload/v1707568334/Ellipse_38_2_o9ligp.png" style="border-radius: 50%; margin-bottom: 16px; display: inline-block;">
+        <div style="color: #5e5e5e; font-family: Barlow, sans-serif;">
+          This email is to notify you that a successful login to your account on {{schoolName}} was made on {{new Date().toISOString().slice(0,10))}} at {{Date.now()}}. <span style="font-weight: 700">Login Details:</span>
+          <ul style="list-style: none; padding: 0; margin: 0; display: inline-block; text-align: left;">
+            <li><span style="font-weight: 700">Date:</span> {{new Date().toISOString().slice(0,10))}}</li>
+            <li><span style="font-weight: 700">Time: </span>{{Date.now()}}</li>
+            <li><span style="font-weight: 700">IP Address:</span> {{req.socket.remoteAddress}} (Optional, consider user privacy)</li>
+            <li><span style="font-weight: 700">Device:</span> [Device type, if available] (Optional, consider user privacy)</li>
+          </ul>
+        </div>
+        <div style="color: #2375e2; font-family: Barlow, sans-serif; margin-top: 16px; display: inline-block;">
+          You can now access GUIDENT APP online or on any device by going to <span> <a href="http://www.guident.tech" style="color: rgba(35, 117, 226, 1)">http://www.guident.tech</a></span>
+        </div>
+      </div>
+    </div>
+      <table style="margin: auto; margin-top: 20px;">
+        <tr>
+          <td style="text-align: center; width: fit-content; height: fit-content;">
+            <a href="https://www.facebook.com/profile.php?id=100085155524341&mibextid=ZbWKwL"><img src="https://res.cloudinary.com/dqqx6sv3o/image/upload/v1708183514/images_1_1_fhw1dj.png" alt="Image description" style="height: 50px; width: 50px; margin-right: 10px;"></a>
+          </td>
+          <td style="text-align: center; width: fit-content; height: fit-content;">
+            <a href="https://www.linkedin.com/company/guident-app/"><img src="https://res.cloudinary.com/dqqx6sv3o/image/upload/v1708183514/download_2_1_mf34rg.png" alt="Image description" style="height: 50px; width: 50px; margin-right: 10px"></a>
+          </td>
+          <td style="text-align: center; width: fit-content; height: fit-content;">
+            <a href="https://www.instagram.com/guidentapp?igsh=a2x0bWxxdDRlY2sw"><img src="https://res.cloudinary.com/dqqx6sv3o/image/upload/v1708183515/download_4_1_zrv9nm.png" alt="Image description" style="height: 50px; width: 50px; margin-right: 10px"></a>
+          </td>
+        </tr>
+      </table>
+    <div style="color: #000; margin-top: 16px; white-space: nowrap; font: 400 18px Barlow, sans-serif;">
+      Copyright © 2024
+    </div>
+    <div style="color: #000; margin-top: 5px; font: 700 18px Barlow, sans-serif;">
+      GuidentAPP
+    </div>
+    <div style="color: #000; margin-top: 5px; white-space: nowrap; font: 400 18px Barlow, sans-serif;">
+      Guident Edtech Solutions
+    </div>
+  </div>
+</body>
+</html>

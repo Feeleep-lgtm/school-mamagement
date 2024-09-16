@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: guident
+    pull_policy: never
+    image: guident:${GUIDENT_VERSION:-latest}
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/app/
+      - node_modules:/app/node_modules
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - postgres15   
+
+volumes:
+  node_modules:     
